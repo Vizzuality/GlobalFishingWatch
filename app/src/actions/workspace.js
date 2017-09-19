@@ -13,7 +13,7 @@ import { SET_ZOOM, SET_CENTER } from 'actions/map';
 import { SET_BASEMAP } from 'basemap/basemapActions';
 import { initLayers } from 'layers/layersActions';
 import { saveAreaOfInterest } from 'areasOfInterest/areasOfInterestActions';
-import { setFlagFilters, setOuterTimelineDates, SET_INNER_TIMELINE_DATES_FROM_WORKSPACE } from 'filters/filtersActions';
+import { setFlagFilters, setOuterTimelineDates, SET_INNER_TIMELINE_DATES_FROM_WORKSPACE, setSpeed } from 'filters/filtersActions';
 import { setPinnedVessels, addVessel } from 'actions/vesselInfo';
 import { loadRecentVesselsList } from 'recentVessels/recentVesselsActions';
 import calculateLayerId from 'util/calculateLayerId';
@@ -123,6 +123,7 @@ export function saveWorkspace(errorAction) {
           outerExtent: state.filters.timelineOuterExtent.map(e => +e)
         },
         filters: state.filters.flags,
+        timelineSpeed: state.filters.timelineSpeed,
         areas: state.areas.existingAreasOfInterest
       }
     };
@@ -164,6 +165,8 @@ function dispatchActions(workspaceData, dispatch, getState) {
   dispatch({
     type: SET_BASEMAP, payload: workspaceData.basemap
   });
+
+  dispatch(setSpeed(workspaceData.timelineSpeed));
 
   dispatch({
     type: SET_TILESET_URL,
@@ -207,6 +210,7 @@ function processNewWorkspace(data) {
     center: workspace.map.center,
     timelineInnerDates: workspace.timeline.innerExtent.map(d => new Date(d)),
     timelineOuterDates: workspace.timeline.outerExtent.map(d => new Date(d)),
+    timelineSpeed: workspace.timelineSpeed,
     basemap: workspace.basemap,
     layers: workspace.map.layers,
     filters: workspace.filters,
@@ -301,6 +305,7 @@ function processLegacyWorkspace(data, dispatch) {
     timelineInnerDates: [startInnerDate, endInnerDate],
     timelineOuterDates: [startOuterDate, endOuterDate],
     basemap: workspace.basemap,
+    timelineSpeed: workspace.timelineSpeed,
     layers,
     pinnedVessels,
     tilesetUrl,

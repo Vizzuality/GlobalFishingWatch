@@ -104,11 +104,15 @@ export default function (state = initialState, action) {
       });
     }
     case SET_SPEED: {
-      const shouldDecrease = action.payload;
-      const ratio = shouldDecrease ? (1 / TIMELINE_SPEED_CHANGE) : TIMELINE_SPEED_CHANGE;
       const currentSpeed = state.timelineSpeed;
-      const isBetweenLimits = (currentSpeed * ratio > TIMELINE_MIN_SPEED) && (currentSpeed * ratio < TIMELINE_MAX_SPEED);
-      const timelineSpeed = isBetweenLimits ? currentSpeed * ratio : currentSpeed;
+      let timelineSpeed = action.payload.speed || currentSpeed;
+      if (action.payload.speed === undefined) {
+        const ratio = action.payload.shouldDecrease ? (1 / TIMELINE_SPEED_CHANGE) : TIMELINE_SPEED_CHANGE;
+        const isBetweenLimits = (currentSpeed * ratio > TIMELINE_MIN_SPEED) && (currentSpeed * ratio < TIMELINE_MAX_SPEED);
+        if (isBetweenLimits) {
+          timelineSpeed = currentSpeed * ratio;
+        }
+      }
       return Object.assign({}, state, { timelineSpeed });
     }
     default:

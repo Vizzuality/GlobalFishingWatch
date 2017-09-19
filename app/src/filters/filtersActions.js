@@ -149,7 +149,14 @@ export function setTimelineHoverDates(overDates) {
 export function changeSpeed(shouldDecrease) {
   return {
     type: SET_SPEED,
-    payload: shouldDecrease
+    payload: { shouldDecrease }
+  };
+}
+
+export function setSpeed(speed) {
+  return {
+    type: SET_SPEED,
+    payload: { speed }
   };
 }
 

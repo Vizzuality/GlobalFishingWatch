@@ -23,24 +23,28 @@ class PinnedVesselList extends Component {
   }
 
   render() {
-    const isVesselInfoPanelClosed = this.props.currentlyShownVessel === null;
-    const unpinnedVessels = this.props.vessels.filter(vessel => !vessel.pinned);
-    const pinnedVessels = this.props.vessels.filter(vessel => vessel.pinned);
+    const { vessels, currentlyShownVessel } = this.props;
+    const isVesselInfoPanelClosed = currentlyShownVessel === null;
+    const pinnedVessels = vessels.filter(vessel => vessel.pinned);
 
     let pinnedItems = null;
 
-    if (unpinnedVessels.length || pinnedVessels.length) {
+    if (pinnedVessels.length) {
       pinnedItems = (
         <ul className={classnames(pinnedTracksStyles.tracksList, { [pinnedTracksStyles.noInfo]: isVesselInfoPanelClosed })}>
-          {unpinnedVessels.concat(pinnedVessels).map((pinnedVessel, index) =>
-            (<PinnedVessel
-              index={index}
-              key={index}
-              onPinnedVesselOptionsToggled={() => this.onBlendingClicked(index)}
-              showBlending={this.state.currentBlendingOptionsShown === index}
-              vessel={pinnedVessel}
-            />)
-          )}
+          {pinnedVessels.map((pinnedVessel, index) => {
+            const isInfoForVesselOpened = pinnedVessel.mmsi === (currentlyShownVessel && currentlyShownVessel.mmsi);
+            return (
+              <PinnedVessel
+                index={index}
+                key={index}
+                onPinnedVesselOptionsToggled={() => this.onBlendingClicked(index)}
+                showBlending={this.state.currentBlendingOptionsShown === index}
+                vessel={pinnedVessel}
+                isInfoOpened={isInfoForVesselOpened}
+              />
+            );
+          })}
         </ul>
       );
     }

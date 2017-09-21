@@ -14,7 +14,7 @@
     position: absolute;
     text-align: center;
     text-transform: uppercase;
-    top: 19px;
+    top: 18px;
     width: 100%;
 
     @media #{$mq-mobile-large} {
@@ -37,6 +37,7 @@
     font-weight: $font-weight-bold;
     height: 100%;
     padding-top: 36px;
+    margin-top: 2px;
     text-align: center;
     text-transform: uppercase;
     width: 100%;

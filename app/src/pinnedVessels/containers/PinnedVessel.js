@@ -12,7 +12,8 @@ import {
 import { addVesselToRecentVesselList } from 'recentVessels/recentVesselsActions';
 
 const mapStateToProps = state => ({
-  pinnedVesselEditMode: state.vesselInfo.pinnedVesselEditMode
+  pinnedVesselEditMode: state.vesselInfo.pinnedVesselEditMode,
+  currentlyShownVessel: state.vesselInfo.currentlyShownVessel
 });
 
 const mapDispatchToProps = dispatch => ({

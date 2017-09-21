@@ -31,8 +31,10 @@
 
 .timebarPlayback {
   text-align: center;
-  width: 12%;
+  width: 13%;
   margin-top: 12px;
+  margin-left: 1px;
+  margin-right: 1px;
 
   @media #{$mq-mobile-large} {
     margin-left: 0;

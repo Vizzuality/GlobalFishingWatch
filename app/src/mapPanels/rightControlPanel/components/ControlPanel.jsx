@@ -14,7 +14,7 @@ import SearchPanel from 'search/containers/SearchPanel';
 import VesselInfoPanel from 'containers/Map/VesselInfoPanel';
 import ControlPanelStyles from 'styles/components/control_panel.scss';
 import iconStyles from 'styles/icons.scss';
-import VesselsIcon from '-!babel-loader!svg-react-loader!assets/icons/vessels-menu.svg?name=VesselsIcon';
+import SearchIcon from '-!babel-loader!svg-react-loader!assets/icons/search.svg?name=SearchIcon';
 import ReportsIcon from '-!babel-loader!svg-react-loader!assets/icons/report-menu.svg?name=ReportsIcon';
 import LayersIcon from '-!babel-loader!svg-react-loader!assets/icons/layers-menu.svg?name=LayersIcon';
 import FiltersIcon from '-!babel-loader!svg-react-loader!assets/icons/filters-menu.svg?name=FiltersIcon';
@@ -59,7 +59,7 @@ class ControlPanel extends Component {
 
   renderIcon(iconName) {
     const iconComponents = {
-      vessels: VesselsIcon,
+      vessels: SearchIcon,
       layers: LayersIcon,
       filters: FiltersIcon,
       aoi: AOIIcon,

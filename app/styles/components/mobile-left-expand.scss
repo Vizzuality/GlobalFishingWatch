@@ -25,6 +25,10 @@
       transform: translateX(113px);
       margin-left: 0;
       animation: slideLeft 0.4s ease-in;
+      .arrow {
+        margin-left: 10px;
+        transform: rotate(225deg);
+      }
     }
   }
 }

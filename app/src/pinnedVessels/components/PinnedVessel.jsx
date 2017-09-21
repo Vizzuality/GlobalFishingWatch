@@ -97,7 +97,9 @@ class PinnedVessel extends Component {
             className={pinnedTracksStyles.pinnedItemActionItem}
             onClick={e => this.onVesselLabelClick(e)}
           >
-            <InfoIcon className={IconStyles.infoIcon} />
+            <button className={classnames(ButtonStyles.pinVesselIcon, { [ButtonStyles.pinned]: this.props.isInfoOpened })}>
+              <InfoIcon className={IconStyles.infoIcon} />
+            </button>
           </li>
         </ul>
       );
@@ -150,7 +152,8 @@ PinnedVessel.propTypes = {
   setPinnedVesselHue: PropTypes.func,
   onTogglePin: PropTypes.func.isRequired,
   showBlending: PropTypes.bool,
-  vessel: PropTypes.object
+  vessel: PropTypes.object,
+  isInfoOpened: PropTypes.bool.isRequired
 };
 
 export default PinnedVessel;

@@ -1,6 +1,6 @@
 @import '../settings';
 
-.leyend {
+.legend {
   display: inline-block;
   position: absolute;
   bottom: 182px;
@@ -12,14 +12,14 @@
   padding-top: 10px;
   padding-bottom: 15px;
   padding-left: 7px;
-  width: $leyend-mobile-width;
+  width: $legend-mobile-width;
 
   @media #{$mq-tablet} {
-    padding-left: 15px;
-    width: $leyend-width;
+    padding-left: 20px;
+    width: $legend-width;
   }
 
-  .leyendText {
+  .legendText {
     display: flex;
     justify-content: space-between;
     span {
@@ -34,9 +34,13 @@
     }
   }
 
-  .leyendOvals {
+  .legendOvals {
     display: flex;
     margin: 10px;
+    
+    @media #{$mq-tablet} {
+      margin-left: 16px;
+    }
 
     .lessFishingOval {
       background-color: $light-blue;

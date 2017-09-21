@@ -52,11 +52,11 @@
     .fishingHours {
       cursor: pointer;
       margin-left: 7px;
-      fill: rgba($color-3, .5);
+      fill: $color-button-primary;
     }
 
     .counterDescription {
-      color: rgba($color-3, .5);
+      color: $color-button-primary;
       font-family: $font-family-1;
       font-size: $font-size-xs-small;
       font-weight: $font-weight-bold;
@@ -69,7 +69,7 @@
       font-family: $font-family-1;
       font-size: $font-size-s-medium;
       font-weight: $font-weight-bold;
-      margin-top: 5px;
+      margin-top: 8px;
     }
 
     > .categoriesDisplay {

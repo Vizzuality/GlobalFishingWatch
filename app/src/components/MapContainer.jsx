@@ -9,7 +9,7 @@ import templateSettings from 'lodash/templateSettings';
 import { MIN_ZOOM_LEVEL } from 'config';
 import ControlPanel from 'mapPanels/rightControlPanel/containers/ControlPanel';
 import Timebar from 'timebar/containers/Timebar';
-import Leyend from 'mapPanels/leftControlPanel/components/Leyend';
+import Leyend from 'mapPanels/leftControlPanel/components/Legend';
 import MiniGlobe from 'mapPanels/leftControlPanel/components/MiniGlobe';
 import MobileLeftExpand from 'mapPanels/leftControlPanel/components/MobileLeftExpand';
 import ReportPanel from 'report/containers/ReportPanel';

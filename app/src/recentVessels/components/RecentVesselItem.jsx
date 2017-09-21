@@ -59,9 +59,9 @@ class RecentVesselItem extends Component {
 }
 
 RecentVesselItem.propTypes = {
-  closeRecentVesselModal: PropTypes.func,
+  closeRecentVesselModal: PropTypes.func.isRequired,
   pinned: PropTypes.bool,
-  drawVessel: PropTypes.func,
+  drawVessel: PropTypes.func.isRequired,
   searchTerm: PropTypes.string,
   vesselInfo: PropTypes.object
 };

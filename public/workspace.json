@@ -43,7 +43,7 @@
           "description": "Marine protected areas - Restricted Use. Click <a href='/definitions/map-restricted-use' target='_blank'>here</a> to know more",
           "url": "https://cartodb.skytruth.org/user/production/api/v2/viz/f65c6e80-8983-11e6-bd2f-0242ac110006/viz.json",
           "visible": true,
-          "hue": 29,
+          "hue": 36,
           "type": "CartoDBAnimation",
           "opacity": 1,
           "id": "mparu"

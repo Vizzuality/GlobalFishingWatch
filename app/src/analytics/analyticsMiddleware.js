@@ -1,7 +1,8 @@
 import { ADD_CUSTOM_LAYER, TOGGLE_LAYER_VISIBILITY, TOGGLE_LAYER_WORKSPACE_PRESENCE } from 'layers/layersActions';
 import { ADD_REPORT_POLYGON, DELETE_REPORT_POLYGON, SET_REPORT_STATUS_SENT, SHOW_POLYGON } from 'report/reportActions';
-import { SET_FLAG_FILTERS } from 'filters/filtersActions';
+import { SET_FLAG_FILTERS, CHANGE_SPEED } from 'filters/filtersActions';
 import { SET_SEARCH_TERM } from 'search/searchActions';
+import { SET_RECENT_VESSELS_VISIBILITY } from 'recentVessels/recentVesselsActions';
 import {
   GA_DISCARD_REPORT,
   GA_EXTERNAL_LINK_CLICKED,
@@ -14,14 +15,15 @@ import {
   GA_SEARCH_RESULT_CLICKED,
   GA_SET_LAYER_HUE,
   GA_SET_LAYER_OPACITY,
-  GA_VESSEL_POINT_CLICKED
+  GA_VESSEL_POINT_CLICKED,
+  GA_RECENT_VESSEL_ADDED
 } from 'analytics/analyticsActions';
 
 import isFunction from 'lodash/isFunction';
-import { SEARCH_QUERY_MINIMUM_LIMIT } from 'config';
+import { SEARCH_QUERY_MINIMUM_LIMIT, TIMELINE_SPEED_CHANGE } from 'config';
 
 import { FLAGS } from 'app/src/constants';
-import { TOGGLE_VESSEL_PIN } from 'actions/vesselInfo';
+import { TOGGLE_VESSEL_PIN, SET_PINNED_VESSEL_HUE } from 'actions/vesselInfo';
 import { SET_WORKSPACE_ID } from 'actions/workspace';
 
 const GA_ACTION_WHITELIST = [
@@ -76,6 +78,12 @@ const GA_ACTION_WHITELIST = [
     category: 'Search',
     action: 'Search result selected',
     getPayload: action => action.payload.name
+  },
+  {
+    type: GA_RECENT_VESSEL_ADDED,
+    category: 'Search',
+    action: 'Recent Vessels',
+    getPayload: () => 'Selects a recent vessel to view'
   },
   {
     type: TOGGLE_VESSEL_PIN,
@@ -189,6 +197,28 @@ const GA_ACTION_WHITELIST = [
     category: 'Map Interaction',
     action: 'Changed area',
     getPayload: action => `${action.payload.x},${action.payload.y}`
+  },
+  {
+    type: CHANGE_SPEED,
+    category: 'Timeline',
+    action: 'Speed Control',
+    getPayload: (action, state) => {
+      const label = (action.payload.shouldDecrease ? 'Decrease speed to' : 'Increase speed to');
+      const speedChangeFactor = (action.payload.shouldDecrease ? 1 / TIMELINE_SPEED_CHANGE : TIMELINE_SPEED_CHANGE);
+      return `${label} ${state.filters.timelineSpeed * speedChangeFactor}x`;
+    }
+  },
+  {
+    type: SET_PINNED_VESSEL_HUE,
+    category: 'Settings',
+    action: 'Change vessel track colour',
+    getPayload: 'user changes colour'
+  },
+  {
+    type: SET_RECENT_VESSELS_VISIBILITY,
+    category: 'Search',
+    action: 'Recent Vessels',
+    getPayload: action => (action.payload ? 'Open infowindow' : null) // Send only if the modal is opened
   }
 ];
 

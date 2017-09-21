@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import AppStyles from 'styles/components/app.scss';
+import BannerStyles from 'styles/components/banner.scss';
 import { getURLParameterByName } from 'lib/getURLParameterByName';
 import ReactGA from 'react-ga';
 
@@ -73,10 +74,10 @@ class App extends Component {
     return (
       <div>
         {showBanner === true &&
-          <div className={AppStyles.banner}>
+          <div className={BannerStyles.banner}>
             {bannerContent}
-            <button className={AppStyles.closeButton} onClick={() => this.dismissBanner()}>
-              <span className={AppStyles.icon}>✕</span>
+            <button className={BannerStyles.closeButton} onClick={() => this.dismissBanner()}>
+              <span className={BannerStyles.icon}>✕</span>
             </button>
           </div>
         }

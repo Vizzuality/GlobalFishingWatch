@@ -4,6 +4,7 @@ import { LAYER_TYPES } from 'constants';
 import { loadTilesExtraTimeRange } from 'actions/heatmap';
 
 export const SET_SPEED = 'SET_SPEED';
+export const CHANGE_SPEED = 'CHANGE_SPEED';
 export const SAVE_FILTER_GROUP = 'SAVE_FILTER_GROUP';
 export const REWIND_TIMELINE = 'REWIND_TIMELINE';
 export const SET_FILTER_GROUP_MODAL_VISIBILITY = 'SET_FILTER_GROUP_MODAL_VISIBILITY';
@@ -148,7 +149,7 @@ export function setTimelineHoverDates(overDates) {
 
 export function changeSpeed(shouldDecrease) {
   return {
-    type: SET_SPEED,
+    type: CHANGE_SPEED,
     payload: { shouldDecrease }
   };
 }

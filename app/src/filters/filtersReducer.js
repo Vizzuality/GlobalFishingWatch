@@ -7,7 +7,8 @@ import {
   SET_OVERALL_TIMELINE_DATES,
   SET_PLAYING_STATUS,
   SET_TIMELINE_HOVER_DATES,
-  SET_SPEED
+  SET_SPEED,
+  CHANGE_SPEED
 } from 'filters/filtersActions';
 import {
   TIMELINE_DEFAULT_INNER_START_DATE,
@@ -104,15 +105,14 @@ export default function (state = initialState, action) {
       });
     }
     case SET_SPEED: {
-      const currentSpeed = state.timelineSpeed;
-      let timelineSpeed = action.payload.speed || currentSpeed;
-      if (action.payload.speed === undefined) {
-        const ratio = action.payload.shouldDecrease ? (1 / TIMELINE_SPEED_CHANGE) : TIMELINE_SPEED_CHANGE;
-        const isBetweenLimits = (currentSpeed * ratio > TIMELINE_MIN_SPEED) && (currentSpeed * ratio < TIMELINE_MAX_SPEED);
-        if (isBetweenLimits) {
-          timelineSpeed = currentSpeed * ratio;
-        }
-      }
+      const timelineSpeed = action.payload.speed || state.timelineSpeed;
+      return Object.assign({}, state, { timelineSpeed });
+    }
+    case CHANGE_SPEED: {
+      let timelineSpeed = state.timelineSpeed;
+      const changeFactor = action.payload.shouldDecrease ? (1 / TIMELINE_SPEED_CHANGE) : TIMELINE_SPEED_CHANGE;
+      const isBetweenLimits = (timelineSpeed * changeFactor > TIMELINE_MIN_SPEED) && (timelineSpeed * changeFactor < TIMELINE_MAX_SPEED);
+      if (isBetweenLimits) timelineSpeed *= changeFactor;
       return Object.assign({}, state, { timelineSpeed });
     }
     default:

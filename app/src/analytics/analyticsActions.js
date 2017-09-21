@@ -13,6 +13,7 @@ export const GA_SEARCH_RESULT_CLICKED = 'GA_SEARCH_RESULT_CLICKED';
 export const GA_SET_LAYER_HUE = 'GA_SET_LAYER_HUE';
 export const GA_SET_LAYER_OPACITY = 'GA_SET_LAYER_OPACITY';
 export const GA_VESSEL_POINT_CLICKED = 'GA_VESSEL_POINT_CLICKED';
+export const GA_RECENT_VESSEL_ADDED = 'GA_RECENT_VESSEL_ADDED';
 
 /**
  * Only add here actions that are GA-exclusive.
@@ -117,5 +118,11 @@ export function trackCenterTile(x, y) {
   return {
     type: GA_MAP_CENTER_TILE,
     payload: { x, y }
+  };
+}
+
+export function trackRecentVesselAdded() {
+  return {
+    type: GA_RECENT_VESSEL_ADDED
   };
 }

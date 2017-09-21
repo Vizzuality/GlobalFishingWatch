@@ -79,7 +79,8 @@ export const COLORS = {
   yellow: '#FBFF8B',
   lightBlue: '#67FBFE',
   purple: '#7D84FA',
-  orange: '#CC4E4E',
+  red: '#CC4E4E',
+  orange: '#EC6C33',
   pink: '#CC68C4'
 };
 
@@ -88,7 +89,8 @@ export const COLOR_HUES = {
   yellow: 60,
   lightBlue: 182,
   purple: 236,
-  orange: 0,
+  red: 0,
+  orange: 36,
   pink: 305
 };
 

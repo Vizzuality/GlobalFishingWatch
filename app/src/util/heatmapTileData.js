@@ -2,6 +2,7 @@ import PelagosClient from 'lib/pelagosClient';
 import pull from 'lodash/pull';
 import uniq from 'lodash/uniq';
 import sumBy from 'lodash/sumBy';
+import { point, inside, polygon } from '@turf/turf';
 
 import {
   PLAYBACK_PRECISION,
@@ -157,7 +158,7 @@ const _getRadius = (sigma, zoomFactorRadiusRenderingMode, zoomFactorRadius) => {
  * @param columns the columns present on the dataset, determined by tileset headers
  * @param prevPlaybackData an optional previously loaded tilePlaybackData array (when adding time range)
  */
-export const getTilePlaybackData = (zoom, vectorArray, columns, prevPlaybackData) => {
+export const getTilePlaybackData = (zoom, vectorArray, columns, prevPlaybackData, tileCoordinates) => {
   const tilePlaybackData = (prevPlaybackData === undefined) ? [] : prevPlaybackData;
 
   const zoomFactorRadius = _getZoomFactorRadius(zoom);
@@ -170,6 +171,13 @@ export const getTilePlaybackData = (zoom, vectorArray, columns, prevPlaybackData
   pull(extraColumns, 'x', 'y', 'weight', 'sigma', 'radius', 'opacity');  // those are mandatory thus manually added
   pull(extraColumns, 'latitude', 'longitude', 'datetime'); // we only need projected coordinates, ie x/y
   extraColumns = uniq(extraColumns);
+
+  let countTest = 0;
+  const testBounds = polygon([[[-67.1044921875,-53.1204052831],[-59.501953125,-53.1204052831],[-59.501953125,-37.1603165467],[-67.1044921875,-37.1603165467],[-67.1044921875,-53.1204052831]]])
+  if (tileCoordinates.zoom === 3 && tileCoordinates.x === 2 && tileCoordinates.y === 5) {
+    console.log('Argentina')
+    debugger
+  }
 
   for (let index = 0, length = vectorArray.latitude.length; index < length; index++) {
     const datetime = vectorArray.datetime[index];
@@ -186,6 +194,11 @@ export const getTilePlaybackData = (zoom, vectorArray, columns, prevPlaybackData
     opacity = 3 + Math.log(opacity);
     opacity = 0.1 + (0.2 * opacity);
     opacity = Math.min(1, Math.max(VESSELS_MINIMUM_OPACITY, opacity));
+
+    const pt = point([vectorArray.longitude[index], vectorArray.latitude[index]]);
+    if (inside(pt, testBounds)) {
+      countTest++;
+    }
 
     if (!tilePlaybackData[timeIndex]) {
       const frame = {
@@ -208,6 +221,11 @@ export const getTilePlaybackData = (zoom, vectorArray, columns, prevPlaybackData
     extraColumns.forEach((column) => {
       frame[column].push(vectorArray[column][index]);
     });
+  }
+
+  if (countTest > 0 || (tileCoordinates.z === 3 && tileCoordinates.x === 2 && tileCoordinates.y === 5)) {
+    console.log(tileCoordinates);
+    console.log(countTest)
   }
   return tilePlaybackData;
 };

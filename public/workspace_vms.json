@@ -18,17 +18,6 @@
           "opacity": 1,
           "id": "fishing2",
           "tilesetId": "516-resample-v2"
-         },
-         {
-          "title": "VMS Fishing effort",
-          "description": "VMS Fishing effort",
-          "url": "https://api-dot-world-fishing-827.appspot.com/v2/tilesets/525-indo-public-parametrize-v4",
-          "visible": true,
-          "hue": 60,
-          "type": "ClusterAnimation",
-          "opacity": 1,
-          "id": "fishing",
-          "tilesetId": "525-indo-public-parametrize-v6"
         },
         {
           "title": "MPA - No Take",

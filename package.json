@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/Vizzuality/GlobalFishingWatch#readme",
   "dependencies": {
+    "@mapbox/tilebelt": "^1.0.1",
+    "@turf/inside": "^4.7.3",
+    "@turf/turf": "^4.7.3",
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "d3": "^4.10.0",

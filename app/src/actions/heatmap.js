@@ -14,6 +14,9 @@ import { LAYER_TYPES } from 'constants';
 import { clearVesselInfo, addVessel, hideVesselsInfoPanel } from 'actions/vesselInfo';
 import { trackMapClicked } from 'analytics/analyticsActions';
 import { addLoader, removeLoader, zoomIntoVesselCenter } from 'actions/map';
+import { point, inside, polygon } from '@turf/turf';
+import tilebelt from '@mapbox/tilebelt';
+
 
 export const ADD_HEATMAP_LAYER = 'ADD_HEATMAP_LAYER';
 export const ADD_REFERENCE_TILE = 'ADD_REFERENCE_TILE';
@@ -116,6 +119,11 @@ function parseLayerTile(tileCoordinates, columns, map, rawTileData, prevPlayback
   // console.time('test')
   const cleanVectorArrays = getCleanVectorArrays(rawTileData);
   const groupedData = groupData(cleanVectorArrays, columns);
+  console.log([tileCoordinates.zoom,tileCoordinates.x, tileCoordinates.y].join(','))
+  if (tileCoordinates.zoom === 3 && tileCoordinates.x === 2 && tileCoordinates.y === 5) {
+    console.log('load Argentina tile')
+    console.log(Object.keys(groupedData).length)
+  }
   if (Object.keys(groupedData).length === 0) {
     return [];
   }
@@ -124,7 +132,8 @@ function parseLayerTile(tileCoordinates, columns, map, rawTileData, prevPlayback
     tileCoordinates.zoom,
     vectorArray,
     columns,
-    prevPlaybackData
+    prevPlaybackData,
+    tileCoordinates
   );
   return data;
   // console.timeEnd('test');
@@ -185,6 +194,24 @@ function getTiles(layerIds, referenceTiles, newTemporalExtentsToLoad) {
 
         tilePromise.then((rawTileData) => {
           tile.temporalExtentsIndicesLoaded = uniq(tile.temporalExtentsIndicesLoaded.concat(temporalExtentsIndicesToLoad));
+
+          if (referenceTile.tileCoordinates.zoom === 3 && referenceTile.tileCoordinates.x === 2 && referenceTile.tileCoordinates.y === 5) {
+            console.log('Argentina')
+            let countTest = 0;
+            // const testBounds = polygon([[[-67.1044921875,-53.1204052831],[-59.501953125,-53.1204052831],[-59.501953125,-37.1603165467],[-67.1044921875,-37.1603165467],[-67.1044921875,-53.1204052831]]]);
+            const tileBounds = tilebelt.tileToGeoJSON([2, 5, 3]);
+            const tileBoundsPoly = polygon(tileBounds.coordinates);
+            const lats = Array.prototype.slice.call(rawTileData[0].latitude);
+            const lons = Array.prototype.slice.call(rawTileData[0].longitude);
+            lats.forEach((lat, i) => {
+              const pt = point([lons[i], lat]);
+              if (inside(pt, tileBoundsPoly)) {
+                countTest++;
+              }
+            })
+            console.log(countTest)
+            debugger
+          }
           tile.data = parseLayerTile(
             referenceTile.tileCoordinates,
             Object.keys(layerHeader.colsByName),

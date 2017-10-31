@@ -26,7 +26,8 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   label: PropTypes.string,
   labelClassNames: PropTypes.string,
-  classNames: PropTypes.string
+  classNames: PropTypes.string,
+  children: React.PropTypes.node
 };
 
 export default Checkbox;

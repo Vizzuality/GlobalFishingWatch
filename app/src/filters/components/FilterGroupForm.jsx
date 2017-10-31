@@ -49,7 +49,7 @@ class FilterGroupForm extends Component {
         >
           <InfoIcon onClick={() => this.onClickInfo(layer)} className={classnames(ItemList.infoIcon, IconStyles.infoIcon)} />
         </Checkbox>
-      </li >
+      </li>
     ));
   }
 
@@ -68,9 +68,8 @@ class FilterGroupForm extends Component {
       });
 
       return (
-        <div className={SelectorStyles.select}>
+        <div key={index} className={SelectorStyles.select}>
           <Select
-            key={index}
             multi={true} // eslint-disable-line react/jsx-boolean-value
             placeholder={filter.label}
             valueKey="id"
